@@ -1,1 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CYPRI Score Calculator</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+    max-width: 900px;
+}
+h1 { color: #2c3e50; }
+.criterion-box {
+    border: 2px solid #2c3e50;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 35px;
+    color: black;
+}
+.criterion-box:nth-of-type(1) { background-color: #fde725; }
+.criterion-box:nth-of-type(2) { background-color: #a0da39; }
+.criterion-box:nth-of-type(3) { background-color: #4ac16d; }
+.criterion-box:nth-of-type(4) { background-color: #1fa187; }
+.criterion-box:nth-of-type(5) { background-color: #3b528b; }
+.details {
+    font-size: 14px;
+    margin-top: 12px;
+    background: rgba(255, 255, 255, 0.4);
+    padding: 12px;
+    border-left: 3px solid #2c3e50;
+    white-space: pre-line;
+}
+fieldset {
+    border: 2px solid #2c3e50;
+    border-radius: 8px;
+    padding: 30px;
+    margin-bottom: 35px;
+    margin-top: 0;
+    background-color: #21918c;
+    color: black;
+}
+.legend-title {
+    font-weight: bold;
+    color: #2c3e50;
+    font-size: 18px;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+button {
+    margin-top: 30px;
+    padding: 12px 20px;
+    font-size: 18px;
+    cursor: pointer;
+}
+#result {
+    margin-top: 25px;
+    font-size: 22px;
+    font-weight: bold;
+}
+</style>
+</head>
+<body>
+
+<h1>CYPRI Score Calculator</h1>
+
+<form id="cypri-form">
+
+<div class="criterion-box">
+<label><input type="checkbox" name="psychiatric_med"> The use of psychiatric medication (1 point)</label>
+<div class="details">
+Psychiatric drugs are classified as CYP2D6/CYP2C19 substrates according to the Hiemke 2018 Consensus Guidelines for Therapeutic Drug Monitoring in Psychiatry, Flockhart Table, Pharmacogenomics Knowledge Base, CPIC, and DPWG guidelines for PGx-based drug metabolism impact [1,2,3,4,5].<br><br>Examples:<br>atomoxetine, modafinil, amitriptyline, nortriptyline, paroxetine, citalopram, escitalopram, fluoxetine, aripiprazole, risperidone, diazepam, venlafaxine.
+</div>
+</div>
+
+<div class="criterion-box">
+<label><input type="checkbox" name="somatic_med"> The use of somatic medication (1 point)</label>
+<div class="details">
+Non-psychiatric drugs that are also substrates for CYP2D6 and CYP2C19 according to the Flockhart Table, Pharmacogenomics Knowledge Base, CPIC, and DPWG guidelines [2,3,4,5].<br><br>Examples:<br>clopidogrel, codeine, tramadol, omeprazole, pantoprazole, ondansetron, metoclopramide, voriconazole, metoprolol, propafenone.
+</div>
+</div>
+
+<div class="criterion-box">
+<label><input type="checkbox" name="treatment_resistance"> Treatment-resistant condition (1 point)</label>
+<div class="details">
+Defined as the failure of two or more adequate medication trials despite verified adherence and appropriate dosing [6].
+</div>
+</div>
+
+<fieldset>
+<div class="legend-title">Drug plasma levels (choose one)</div>
+
+<label><input type="radio" name="tdm" value="3"> Drug plasma levels do not correlate with the administered dose (3 points)</label>
+<div class="details">
+Based on therapeutic drug monitoring (TDM) results [1], defined as:<br>
+- High dose with subtherapeutic drug levels (suggesting ultra-/rapid metabolism), OR<br>
+- Low dose with supratherapeutic/toxic drug levels (suggesting intermediate/poor metabolism).
+</div>
+
+<label><input type="radio" name="tdm" value="1"> Plasma drug concentration falls outside the established minimum-maximum range (1 point)</label>
+<div class="details">
+- Plasma drug concentration falls outside the established minimum-maximum range (C/Dlow and C/Dhigh) for the specific drug according to Hiemke 2018 [1], OR<br>
+- Altered parent drug/metabolite ratio, indicating non-normal CYP2D6/CYP2C19 metabolism (e.g., venlafaxine, risperidone, aripiprazole).
+</div>
+
+<label><input type="radio" name="tdm" value="0" checked> None</label>
+</fieldset>
+
+<div class="criterion-box">
+<label><input type="checkbox" name="adr"> Clinically significant adverse drug reactions (3 points)</label>
+<div class="details">
+Based solely on clinical observation and pharmacological history, the following criteria are the results of an ADR:<br>
+- Requiring dose adjustment,<br>
+- Increased monitoring,<br>
+- Drug discontinuation due to intolerance or toxicity,<br>
+- Hospitalization due to ADR,<br>
+- Patient is unable to tolerate the drug despite standard dosing (reliable information from pharmacologic history, e.g. medical opinion).<br><br>
+ADRs not linked to CYP2C19/CYP2D6 metabolism variability (concentration-dependent ADRs), such as allergic or immunologically mediated reactions and weight gain, are excluded [1,7,8].
+</div>
+</div>
+
+<button type="button" onclick="calculateScore()">Calculate Score</button>
+</form>
+
+<h2 id="result"></h2>
+
+<h3>References:</h3>
+<ol>
+<li>Hiemke, C. et al. (2018). Consensus guidelines for therapeutic drug monitoring in neuropsychopharmacology: Update 2017. Pharmacopsychiatry.</li>
+<li>Indiana University Drug Interactions Table.</li>
+<li>PharmGKB Database.</li>
+<li>CPIC Guidelines.</li>
+<li>DPWG Guidelines.</li>
+<li>Howes O. et al., Treatment resistance in psychiatry, Molecular Psychiatry, 2022.</li>
+<li>Lingjaerde, O. et al., UKU-SERS-Pat (2001).</li>
+<li>Dreher, J. et al., ADR scale (1999).</li>
+</ol>
+
+<script>
+function calculateScore() {
+    let score = 0;
+    score += document.querySelector('input[name="psychiatric_med"]').checked ? 1 : 0;
+    score += document.querySelector('input[name="somatic_med"]').checked ? 1 : 0;
+    score += document.querySelector('input[name="treatment_resistance"]').checked ? 1 : 0;
+    score += parseInt(document.querySelector('input[name="tdm"]:checked').value);
+    score += document.querySelector('input[name="adr"]').checked ? 3 : 0;
+    document.getElementById("result").innerText = "Total CYPRI Score: " + score;
+}
+</script>
+
+</body>
+</html>
 

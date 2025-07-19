@@ -58,6 +58,12 @@ button {
     font-weight: bold;
     white-space: pre-line;
 }
+#interpretation {
+    margin-top: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #b00020;
+}
 </style>
 </head>
 <body>
@@ -123,6 +129,7 @@ ADRs not linked to CYP2C19/CYP2D6 metabolism variability (concentration-dependen
 </form>
 
 <h2 id="result"></h2>
+<div id="interpretation"></div>
 
 <h3>References:</h3>
 <ol>
@@ -145,11 +152,14 @@ function calculateScore() {
     score += parseInt(document.querySelector('input[name="tdm"]:checked').value);
     score += document.querySelector('input[name="adr"]').checked ? 3 : 0;
 
-    let resultMessage = "Total CYPRI Score: " + score;
+    document.getElementById("result").innerText = "Total CYPRI Score: " + score;
+
+    const interpretation = document.getElementById("interpretation");
     if (score >= 4) {
-        resultMessage += "\nPatient is highly likely to benefit from pharmacogenetic testing. Testing is recommended.";
+        interpretation.innerText = "Patient is highly likely to benefit from pharmacogenetic testing. Testing is recommended.";
+    } else {
+        interpretation.innerText = "";
     }
-    document.getElementById("result").innerText = resultMessage;
 }
 </script>
 

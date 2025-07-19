@@ -155,9 +155,11 @@ function calculateScore() {
 
     let interpretation = "";
     if (score >= 4) {
-        interpretation = "<span style='color: red; font-weight: bold;'>Patient is highly likely to benefit from pharmacogenetic testing. Testing is recommended.</span>";
+        interpretation = "<span style='color: red; font-weight: bold;'>Patient is highly likely to benefit from pharmacogenetic testing.<br>
+            Testing is recommended.</span>";
     } else if (score <= 3) {
-        interpretation = "<span style='color: red; font-weight: bold;'>Patient is unlikely to benefit from pharmacogenetic testing based on clinical criteria. Testing is not routinely recommended.</span>";
+        interpretation = "<span style='color: red; font-weight: bold;'>Patient is unlikely to benefit from pharmacogenetic testing based on clinical criteria.<br>
+            Testing is not routinely recommended.</span>";
     }
 
     document.getElementById("interpretation").innerHTML = interpretation;

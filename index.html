@@ -63,12 +63,51 @@ button {
     margin-top: 15px;
     margin-bottom: 15px;
 }
+.intro-box {
+    background: #f4f7fb;
+    border-left: 5px solid #2c3e50;
+    border-radius: 10px;
+    padding: 22px 24px;
+    margin-bottom: 32px;
+}
+
+.intro-box h2 {
+    margin-top: 0;
+    margin-bottom: 14px;
+    color: #2c3e50;
+}
+
+.intro-box p {
+    font-size: 16px;
+    line-height: 1.6;
+}
 </style>
 </head>
 <body>
 
 <h1>CYPRI Score Calculator</h1>
+<div class="intro-box">
+  <h2>CYPRI – clinical tool for guiding pharmacogenetic testing</h2>
 
+  <p>
+    CYPRI (CYP Pharmacogenetic Risk Index) is a clinical tool designed for physicians and clinical pharmacists
+    to identify patients with a high probability of benefiting from pharmacogenetic (PGx) testing,
+    particularly genotyping of CYP2D6 and CYP2C19.
+  </p>
+
+  <p>
+    It is based on routinely available clinical data, such as treatment resistance, occurrence of adverse effects,
+    therapeutic drug monitoring (TDM) results, and type of medication. CYPRI helps to estimate whether PGx testing
+    is likely to lead to changes in drug selection or dosing, or to the need for increased monitoring.
+  </p>
+
+  <p>
+    Select the relevant clinical criteria and click
+    <strong>“Calculate score”</strong>.
+    A higher score indicates a higher probability of clinically meaningful impact of PGx testing.
+    A value of ≥4 points indicates a high likelihood of clinical benefit.
+  </p>
+</div>
 <form id="cypri-form">
 
 <div class="criterion-box">
